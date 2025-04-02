@@ -10,12 +10,12 @@ const poppins = localFont({
 
 export default function Home() {
   return (
-    <main className= "bg-purple-100 ">
-     <section className="grid grid-cols-2 md:grid-cols-2 h-[50vh] md:h-[50vh]">
-      <div className=" flex flex-col gap-4 items-center justify-center">
-        <p className={`font-bold text-3xl md-text-3xl text-center ${poppins.className}`}>
+    <main className= "bg-purple-100 min-h-[50vh] ">
+     <section className=" container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" flex flex-col md:flex-wrap gap-4 items-center justify-center">
+        <h1 className={`font-bold text-2xl sm:text-3xl md:text-3xl text-center ${poppins.className}`}>
           The best URL shortener in the Market
-        </p>
+        </h1>
 
       <p className="px-6 sm:px-10 md:px-20 lg:px-40 text-center sm:text-left ">
         We are the best URL Shortener in the world. Most of the Url shosteners will track you or ask you to give your details for login. We understand your needs and hence we have created this URL shortener.
