@@ -10,24 +10,24 @@ const poppins = localFont({
 
 export default function Home() {
   return (
-    <main className="bg-purple-100">
-     <section className="grid grid-cols-2 h-[50vh]">
+    <main className= "bg-purple-100 ">
+     <section className="grid grid-cols-2 md:grid-cols-2 h-[50vh] md:h-[50vh]">
       <div className=" flex flex-col gap-4 items-center justify-center">
-        <p className={`font-bold text-3xl ${poppins.className}`}>
+        <p className={`font-bold text-3xl md-text-3xl text-center ${poppins.className}`}>
           The best URL shortener in the Market
         </p>
 
-      <p className="px-40">
+      <p className="px-6 sm:px-10 md:px-20 lg:px-40 text-center sm:text-left ">
         We are the best URL Shortener in the world. Most of the Url shosteners will track you or ask you to give your details for login. We understand your needs and hence we have created this URL shortener.
       </p>
-      <div className='flex gap-3 justify-start'>
-                <Link href="/shorten"><button className='bg-purple-500 shadow-lg rounded-lg py-1 font-bold cursor-pointer text-white p-3'>Try Now</button></Link>
-                <Link href="/github"><button className='bg-purple-500 shadow-lg rounded-lg py-1 font-bold  cursor-pointer text-white p-3'>GitHub</button></Link>
+      <div className='flex gap-3 justify-between md:justify-between '>
+                <Link href="/shorten"><button className='  md:block bg-purple-500 shadow-lg rounded-lg py-2 font-bold cursor-pointer text-white p-3'>Try Now</button></Link>
+                <Link href="/github"><button className='bg-purple-500 shadow-lg rounded-lg py-2 font-bold  cursor-pointer text-white p-3'>GitHub</button></Link>
             </div>
 
       </div>
 
-      <div className=" justify-start relative ">
+      <div className="  relative md:h-full h-64 w-full">
       <Image  className="mix-blend-darken" alt='vector img' src={"/drawing241.jpg"} fill={true} />
 
       </div>
