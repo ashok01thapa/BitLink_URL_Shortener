@@ -27,7 +27,7 @@ export default function Home() {
 
       </div>
 
-      <div className="relative md:h-full h-64 w-full">
+      <div className="relative md:h-full h-64 w-full ">
       <Image  className="mix-blend-darken" alt='vector img' src={"/drawing241.jpg"} fill={true} />
 
       </div>
