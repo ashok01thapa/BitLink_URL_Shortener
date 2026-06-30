@@ -1,6 +1,9 @@
-# BitLinks - Your Trusted URL Shortener 🔗⚡
+# BitLinks - Your Trusted URL Shortener 🔗
 
 BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 This project helps you convert long, messy links into short, shareable URLs in seconds — no tracking, no unnecessary sign-ups, just a clean and reliable shortening service.
+
+![BitLinks Homepage](./screenshots/homepage.png)
+
 
 ## Features
 - **Simple Shortening** – Convert long URLs to short links instantly
