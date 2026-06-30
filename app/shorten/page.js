@@ -41,8 +41,8 @@ fetch("/api/generate", requestOptions)
     }
 
   return (
-    <div className='mx-auto max-w-lg bg-purple-100 p-8 my-16 rounded-lg flex flex-col gap-4'>
-        <h1 className='font-bold text-2xl'>Generate your short URLs</h1>
+    <div className=' container mx-auto w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-purple-100 p-4 sm:p-6 md:p-8 my-8 sm:my-12 md:my-16 rounded-lg flex flex-col gap-3 sm:gap-4 md:gap-6'>
+        <h1 className='font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl'>Generate your short URLs</h1>
         <div className='flex flex-col gap-2'>
             <input type="text"
             value={url}

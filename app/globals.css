@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+    /* styles here */
+    .nav{
+        margin: 2px;
+    }
+  }
