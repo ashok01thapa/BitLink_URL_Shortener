@@ -46,7 +46,7 @@ const ContactUs = () => {
           Contact <span className='text-purple-600'>Us</span>
         </h1>
         <p className='text-center text-gray-500 mt-4 max-w-2xl mx-auto'>
-          Have a question, found a bug, or want to share feedback? We'd love to hear from you.
+          Have a question, found a bug, or want to share feedback? We&apos;d love to hear from you.
         </p>
 
         <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mt-12'>
