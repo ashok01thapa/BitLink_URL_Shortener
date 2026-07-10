@@ -1,0 +1,103 @@
+@Library('Shared') _
+pipeline {
+    agent { label 'bitlink_agent' }
+
+    environment {
+        SONAR_HOME = tool "Sonar"
+    }
+
+    parameters {
+        string(name: 'DOCKER_TAG', defaultValue: '', description: 'Setting docker image for latest push')
+    }
+
+    stages {
+        stage("Validate Parameters") {
+            steps {
+                script {
+                    if (params.DOCKER_TAG == '') {
+                        error("DOCKER_TAG must be provided.")
+                    }
+                }
+            }
+        }
+
+        stage("Workspace cleanup"){
+            steps{
+                script{
+                    cleanWs()
+                }
+            }
+        }
+
+        stage('Git: Code Checkout') {
+            steps {
+                script{
+                    code_checkout("https://github.com/yourusername/bit_links.git", "main")
+                }
+            }
+        }
+
+        stage("Trivy: Filesystem scan"){
+            steps{
+                script{
+                    trivy_scan()
+                }
+            }
+        }
+
+        stage("OWASP: Dependency check"){
+            steps{
+                script{
+                    owasp_dependency()
+                }
+            }
+        }
+
+        stage("SonarQube: Code Analysis"){
+            steps{
+                script{
+                    sonarqube_analysis("Sonar", "bitlinks", "bitlinks")
+                }
+            }
+        }
+
+        stage("SonarQube: Code Quality Gates"){
+            steps{
+                script{
+                    sonarqube_code_quality()
+                }
+            }
+        }
+
+        stage("Install Dependencies") {
+            steps {
+                sh 'npm ci'
+            }
+        }
+
+        stage("Docker: Build Image"){
+            steps{
+                script{
+                    docker_build("bitlinks-app", "${params.DOCKER_TAG}", "yourdockerhubuser")
+                }
+            }
+        }
+
+        stage("Docker: Push to DockerHub"){
+            steps{
+                script{
+                    docker_push("bitlinks-app", "${params.DOCKER_TAG}", "yourdockerhubuser")
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            archiveArtifacts artifacts: '*.xml', followSymlinks: false
+            build job: "Bitlinks_CD", parameters: [
+                string(name: 'DOCKER_TAG', value: "${params.DOCKER_TAG}")
+            ]
+        }
+    }
+}
