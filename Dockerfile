@@ -12,9 +12,17 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# Set during build if you need NEXT_PUBLIC_* vars baked into the client bundle
+
+# Baked into the client bundle at build time
 ARG NEXT_PUBLIC_HOST
 ENV NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST
+
+# Needed at build time so `next build` can collect page data for API routes
+# that touch Mongo/Redis (e.g. /api/contact). Names MUST match what the app
+# reads via process.env.MONGODB_URI / process.env.REDIS_URL
+ARG MONGODB_URI
+ENV MONGODB_URI=$MONGODB_URI
+
 # Requires output: 'standalone' in next.config.mjs
 RUN npm run build
 
