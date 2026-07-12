@@ -1,48 +1,29 @@
-# ---- Base image ----
-FROM node:20-alpine AS base
-WORKDIR /app
-
-# ---- Dependencies ----
-FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci
-
-# ---- Build ----
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-# Baked into the client bundle at build time
-ARG NEXT_PUBLIC_HOST
-ENV NEXT_PUBLIC_HOST=$NEXT_PUBLIC_HOST
-
-# Needed at build time so `next build` can collect page data for API routes
-# that touch Mongo/Redis (e.g. /api/contact). Names MUST match what the app
-# reads via process.env.MONGODB_URI / process.env.REDIS_URL
-ARG MONGODB_URI
-ENV MONGODB_URI=$MONGODB_URI
-
-# Requires output: 'standalone' in next.config.mjs
-RUN npm run build
-
-# ---- Production runner (tiny image) ----
-FROM node:20-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOSTNAME=0.0.0.0
-
-# Run as non-root user
-RUN addgroup --system --gid 1001 nodejs \
-    && adduser --system --uid 1001 nextjs
-
-# Only copy the minimal traced output + static assets — no full node_modules
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
-EXPOSE 3000
-
-CMD ["node", "server.js"]
+version: "3.9"
+services:
+  mongodb:
+    image: mongo:7
+    container_name: bitlinks_mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  frontend:
+    image: ${IMAGE_NAME}:${IMAGE_TAG}
+    container_name: bitlinks_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017
+      NEXT_PUBLIC_HOST: http://3.130.138.12:3000
+    depends_on:
+      mongodb:
+        condition: service_healthy
+volumes:
+  mongo_data:
