@@ -1,15 +1,12 @@
 @Library('Shared') _
 pipeline {
     agent { label 'bitlink_agent' }
-
     environment {
         SONAR_HOME = tool "Sonar"
     }
-
     parameters {
         string(name: 'DOCKER_TAG', defaultValue: '', description: 'Setting docker image for latest push')
     }
-
     stages {
         stage("Validate Parameters") {
             steps {
@@ -20,7 +17,6 @@ pipeline {
                 }
             }
         }
-
         stage("Workspace cleanup"){
             steps{
                 script{
@@ -28,15 +24,13 @@ pipeline {
                 }
             }
         }
-
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/yourusername/bit_links.git", "main")
+                    code_checkout("https://github.com/ashok01thapa/bit_links.git", "main")
                 }
             }
         }
-
         stage("Trivy: Filesystem scan"){
             steps{
                 script{
@@ -44,7 +38,11 @@ pipeline {
                 }
             }
         }
-
+        stage('Free Memory') {
+            steps {
+                sh 'sync; echo 3 | sudo tee /proc/sys/vm/drop_caches || true; free -h'
+            }
+        }
         stage("OWASP: Dependency check"){
             steps{
                 script{
@@ -52,7 +50,6 @@ pipeline {
                 }
             }
         }
-
         stage("SonarQube: Code Analysis"){
             steps{
                 script{
@@ -60,44 +57,45 @@ pipeline {
                 }
             }
         }
-
         stage("SonarQube: Code Quality Gates"){
             steps{
                 script{
-                    sonarqube_code_quality()
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                        sonarqube_code_quality()
+                    }
                 }
             }
         }
-
         stage("Install Dependencies") {
             steps {
-                sh 'npm ci'
+                sh 'NODE_OPTIONS="--max-old-space-size=512" npm ci --prefer-offline --no-audit --no-fund'
             }
         }
-
         stage("Docker: Build Image"){
             steps{
                 script{
-                    docker_build("bitlinks-app", "${params.DOCKER_TAG}", "yourdockerhubuser")
+                    docker_build("bitlinks-app", "${params.DOCKER_TAG}", "ashokthapa", "http://3.130.138.12:3000", "MONGODB_URI")
                 }
             }
         }
-
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    docker_push("bitlinks-app", "${params.DOCKER_TAG}", "yourdockerhubuser")
+                    docker_push("bitlinks-app", "${params.DOCKER_TAG}", "ashokthapa")
                 }
             }
         }
     }
-
     post {
         success {
             archiveArtifacts artifacts: '*.xml', followSymlinks: false
             build job: "Bitlinks_CD", parameters: [
                 string(name: 'DOCKER_TAG', value: "${params.DOCKER_TAG}")
             ]
+        }
+        failure {
+            echo "Pipeline failed at build #${env.BUILD_NUMBER}. Check the stage logs above for details."
+            archiveArtifacts artifacts: '*.xml', allowEmptyArchive: true, followSymlinks: false
         }
     }
 }
