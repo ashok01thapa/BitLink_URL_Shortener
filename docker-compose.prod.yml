@@ -21,7 +21,7 @@ services:
       - "3000:3000"
     environment:
       MONGODB_URI: mongodb://mongodb:27017
-      NEXT_PUBLIC_HOST: http://localhost:3000
+      NEXT_PUBLIC_HOST: http://3.130.138.12:3000
     depends_on:
       mongodb:
         condition: service_healthy
