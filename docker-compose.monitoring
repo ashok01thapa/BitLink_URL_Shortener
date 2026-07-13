@@ -1,0 +1,126 @@
+services:
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: bitlinks_prometheus
+    restart: unless-stopped
+    configs:
+      - source: prometheus_config
+        target: /etc/prometheus/prometheus.yml
+      - source: prometheus_alert_rules
+        target: /etc/prometheus/alert.rules.yml
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    ports:
+      - "9090:9090"
+    networks:
+      - bitlinks_net
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    container_name: bitlinks_alertmanager
+    restart: unless-stopped
+    configs:
+      - source: alertmanager_config
+        target: /etc/alertmanager/alertmanager.yml
+    volumes:
+      - alertmanager_data:/alertmanager
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    ports:
+      - "9093:9093"
+    networks:
+      - bitlinks_net
+
+  grafana:
+    image: grafana/grafana:11.2.0
+    container_name: bitlinks_grafana
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-changeme}
+    configs:
+      - source: grafana_datasource
+        target: /etc/grafana/provisioning/datasources/datasource.yml
+    volumes:
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
+    networks:
+      - bitlinks_net
+
+volumes:
+  prometheus_data:
+  alertmanager_data:
+  grafana_data:
+
+networks:
+  bitlinks_net:
+    external: true
+
+configs:
+  prometheus_config:
+    content: |
+      global:
+        scrape_interval: 15s
+      alerting:
+        alertmanagers:
+          - static_configs:
+              - targets: ["alertmanager:9093"]
+      rule_files:
+        - "/etc/prometheus/alert.rules.yml"
+      scrape_configs:
+        - job_name: "prometheus"
+          static_configs:
+            - targets: ["localhost:9090"]
+
+  prometheus_alert_rules:
+    content: |
+      groups:
+        - name: basic
+          rules:
+            - alert: TargetDown
+              expr: up == 0
+              for: 1m
+              labels:
+                severity: critical
+              annotations:
+                summary: 'Target {{ $labels.job }} is down'
+                description: 'Prometheus could not scrape {{ $labels.instance }} for 1 minute.'
+
+  alertmanager_config:
+    content: |
+      global:
+        resolve_timeout: 5m
+        smtp_smarthost: 'smtp.gmail.com:587'
+        smtp_from: 'alerts@bitlinks.example.com'
+        smtp_auth_username: 'alerts@bitlinks.example.com'
+        smtp_auth_password: '${SMTP_APP_PASSWORD}'
+        smtp_require_tls: true
+      route:
+        receiver: default-email
+        group_by: ['alertname', 'severity']
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 3h
+      receivers:
+        - name: default-email
+          email_configs:
+            - to: 'mgr.axok@gmail.com'
+              send_resolved: true
+
+  grafana_datasource:
+    content: |
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          access: proxy
+          url: http://prometheus:9090
+          isDefault: true
+          editable: true
