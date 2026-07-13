@@ -48,7 +48,7 @@ pipeline {
                 script{
                     sh '''
                         sleep 10
-                        curl -f http://localhost:3000 || (echo "Health check failed" && exit 1)
+                        curl -f http://localhost:80 || (echo "Health check failed" && exit 1)
                     '''
                 }
             }
