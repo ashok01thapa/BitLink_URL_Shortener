@@ -210,8 +210,8 @@ configs:
               labels:
                 severity: warning
               annotations:
-                summary: "High CPU load on {{ $labels.instance }}"
-                description: "CPU usage is above 85% for 5 minutes (current value: {{ $value | printf \"%.1f\" }}%)."
+                summary: 'High CPU load on {{ $labels.instance }}'
+                description: 'CPU usage is above 85% for 5 minutes (current value: {{ $value | printf "%.1f" }}%).'
 
             - alert: HostOutOfMemory
               expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100 < 15
@@ -219,8 +219,8 @@ configs:
               labels:
                 severity: critical
               annotations:
-                summary: "Host memory nearly exhausted on {{ $labels.instance }}"
-                description: "Available memory is below 15% (current value: {{ $value | printf \"%.1f\" }}%)."
+                summary: 'Host memory nearly exhausted on {{ $labels.instance }}'
+                description: 'Available memory is below 15% (current value: {{ $value | printf "%.1f" }}%).'
 
             - alert: HostOutOfDiskSpace
               expr: (node_filesystem_avail_bytes{mountpoint="/rootfs"} / node_filesystem_size_bytes{mountpoint="/rootfs"}) * 100 < 10
