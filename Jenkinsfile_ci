@@ -74,7 +74,7 @@ pipeline {
         stage("Docker: Build Image"){
             steps{
                 script{
-                    docker_build("bitlinks-app", "${params.DOCKER_TAG}", "ashokthapa", "http://3.130.138.12:3000", "MONGODB_URI")
+                    docker_build("bitlinks-app", "${params.DOCKER_TAG}", "ashokthapa", "http://3.130.138.12", "MONGODB_URI")
                 }
             }
         }
