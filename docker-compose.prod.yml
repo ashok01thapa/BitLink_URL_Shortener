@@ -60,7 +60,6 @@ services:
       mongodb:
         condition: service_healthy
 
-  # ---------------- Monitoring ----------------
   prometheus:
     image: prom/prometheus:v2.55.1
     container_name: bitlinks_prometheus
@@ -163,10 +162,6 @@ volumes:
   alertmanager_data:
   grafana_data:
 
-# ---------------------------------------------------------------------------
-# Inline config content — no separate .yml files on disk needed.
-# Requires Docker Compose v2.24+ (check with: docker compose version).
-# ---------------------------------------------------------------------------
 configs:
   prometheus_config:
     content: |
