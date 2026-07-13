@@ -1,13 +1,13 @@
 @Library('Shared') _
 pipeline {
-    agent {label 'bitlink_agent'}
-    
+    agent { label 'bitlink_agent' }
+
     parameters {
         string(name: 'DOCKER_TAG', defaultValue: '', description: 'Docker tag of the image built by the CI job')
     }
 
     environment {
-        IMAGE_NAME = 'yourdockerhubuser/bitlinks-app'
+        IMAGE_NAME = 'ashokthapa/bitlinks-app'
     }
 
     stages {
@@ -18,15 +18,15 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/yourusername/bit_links.git","main")
+                    code_checkout("https://github.com/ashok01thapa/bit_links.git","main")
                 }
             }
         }
-        
+
         stage('Verify: Docker Image Tag') {
             steps {
                 script{
@@ -34,32 +34,34 @@ pipeline {
                 }
             }
         }
-        
-        stage('Docker: Deploy') {
-            steps {
-                script{
-                    docker_deploy("${env.IMAGE_NAME}", "${params.DOCKER_TAG}", "docker-compose.prod.yml")
-                }
-            }
-        }
 
+        stage('Docker: Deploy') {
+    steps {
+        script {
+            docker_deploy(
+                "${env.IMAGE_NAME}",
+                "${params.DOCKER_TAG}",
+                "docker-compose.prod.yml -f docker-compose.monitoring.yml"
+            )
+        }
+    }
+}
         stage('Health Check') {
             steps {
                 script{
                     sh '''
                         sleep 10
-                        curl -f http://localhost:80 || (echo "Health check failed" && exit 1)
+                        curl -f http://localhost:80
                     '''
                 }
             }
         }
     }
-    
-  post {
+
+    post {
         success {
             script {
                 emailext attachLog: true,
-                from: 'youremail@gmail.com',
                 subject: "Bitlinks Application has been deployed - '${currentBuild.result}'",
                 body: """
                     <html>
@@ -78,15 +80,14 @@ pipeline {
                         </div>
                     </body>
                     </html>
-            """,
-            to: 'youremail@gmail.com',
-            mimeType: 'text/html'
+                """,
+                to: 'mgr.axok@gmail.com',
+                mimeType: 'text/html'
             }
         }
-      failure {
+        failure {
             script {
                 emailext attachLog: true,
-                from: 'youremail@gmail.com',
                 subject: "Bitlinks Application deployment failed - '${currentBuild.result}'",
                 body: """
                     <html>
@@ -99,9 +100,9 @@ pipeline {
                         </div>
                     </body>
                     </html>
-            """,
-            to: 'youremail@gmail.com',
-            mimeType: 'text/html'
+                """,
+                to: 'mgr.axok@gmail.com',
+                mimeType: 'text/html'
             }
         }
     }
