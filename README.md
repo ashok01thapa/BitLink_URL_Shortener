@@ -49,10 +49,8 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 <img width="1887" height="946" alt="Screenshot (416)" src="https://github.com/user-attachments/assets/ae424111-b635-4ea1-b5fe-bc032b026486" />
 
 - <b>CD pipeline to update application version</b>
-![image](https://github.com/user-attachments/assets/8fd13807-622e-45f7-af23-dcc1ba30ca5d)
+<img width="1872" height="960" alt="Screenshot 2026-07-14 132236" src="https://github.com/user-attachments/assets/98ef2cc5-3ede-4665-bd1c-c025d764b4c9" />
 
-- <b>ArgoCD application for deployment on EKS</b>
-![image](https://github.com/user-attachments/assets/1ea9d486-656e-40f1-804d-2651efb54cf6)
 
 #
 > [!Important]
