@@ -45,10 +45,9 @@ WanderLust is a simple MERN travel blog website ✈ This project is aimed to hel
 - OWASP (Dependency check)
 - SonarQube (Quality)
 - Trivy (Filesystem Scan)
-- ArgoCD (CD)
-- Redis (Caching)
-- AWS EKS (Kubernetes)
-- Helm (Monitoring using grafana and prometheus)
+- Jenkins (CD)
+- AWS EC2(Instances)
+- Monitoring using grafana and prometheus
 
 ### How pipeline will look after deployment:
 - <b>CI pipeline to build and push</b>
