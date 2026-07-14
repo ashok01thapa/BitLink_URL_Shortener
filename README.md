@@ -27,7 +27,7 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 - Jenkins (CD)
 - AWS EC2(Instances)
 - Nginx (Reverse Proxy)
-- Monitoring using grafana and prometheus (Docker
+- Monitoring using grafana and prometheus (Docker)
 
 ### How pipeline will look after deployment:
 - <b>CI pipeline to build and push</b>
