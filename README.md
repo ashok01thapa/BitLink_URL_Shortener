@@ -59,8 +59,6 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 | Tech stack    | Installation |
 | -------- | ------- |
 | Jenkins Master | <a href="#Jenkins">Install and configure Jenkins</a>     |
-| eksctl | <a href="#EKS">Install eksctl</a>     |
-| Argocd | <a href="#Argo">Install and configure ArgoCD</a>     |
 | Jenkins-Worker Setup | <a href="#Jenkins-worker">Install and configure Jenkins Worker Node</a>     |
 | OWASP setup | <a href="#Owasp">Install and configure OWASP</a>     |
 | SonarQube | <a href="#Sonar">Install and configure SonarQube</a>     |
