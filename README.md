@@ -71,12 +71,13 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 #
 
 > [!Note]
-> This project will be implemented on North California region (us-west-1).
+> This project will be implemented on Ohio region (us-east-2).
 
-- <b>Create 1 Master machine on AWS with 2CPU, 8GB of RAM (t2.large) and 29 GB of storage and install Docker on it.</b>
+- <b>Create 1 Master machine on AWS with 2CPU, 4GB of RAM (c7i-flex.large) and 15 GB of storage and install Docker on it.</b>
 #
 - <b>Open the below ports in security group of master machine and also attach same security group to Jenkins worker node (We will create worker node shortly)</b>
-![image](https://github.com/user-attachments/assets/4e5ecd37-fe2e-4e4b-a6ba-14c7b62715a3)
+
+<img width="1872" height="432" alt="Screenshot 2026-07-14 143316" src="https://github.com/user-attachments/assets/f39519c1-522f-40a7-afc6-935c1eb9a8ef" />
 
 > [!Note]
 > We are creating this master machine because we will configure Jenkins master, eksctl, EKS cluster creation from here.
