@@ -226,16 +226,22 @@ sudo apt-get install trivy -y
 ![image](https://github.com/user-attachments/assets/2fdc1e56-f78c-43d2-914a-104ec2c8ea86)
 #
 - <b> Go to <mark> Manage Jenkins --> credentials</mark> and add Github credentials to push updated code from the pipeline:</b>
-![image](https://github.com/user-attachments/assets/4d0c1a47-621e-4aa2-a0b1-71927fcdaef4)
+
+<img width="954" height="868" alt="Screenshot 2026-07-14 140552" src="https://github.com/user-attachments/assets/2b3671bb-7f89-42d0-9b36-f0c38a0ac491" />
+
 > [!Note]
 > While adding github credentials add Personal Access Token in the password field.
 #
 - <b>Go to <mark> Manage Jenkins --> System</mark> and search for SonarQube installations:</b>
-![image](https://github.com/user-attachments/assets/ae866185-cb2b-4e83-825b-a125ec97243a)
+
+<img width="1848" height="821" alt="Screenshot 2026-07-14 140720" src="https://github.com/user-attachments/assets/024043c7-8126-4fff-80d4-8f0d3f77d38e" />
+
 #
 - <b>Now again, Go to <mark> Manage Jenkins --> System</mark> and search for Global Trusted Pipeline Libraries:</b
-![image](https://github.com/user-attachments/assets/874b2e03-49b9-4c26-9b0f-bd07ce70c0f1)
-![image](https://github.com/user-attachments/assets/1ca83b43-ce85-4970-941d-9a819ce4ecfd)
+  <img width="1860" height="830" alt="Screenshot 2026-07-14 140938" src="https://github.com/user-attachments/assets/ab2c7895-c117-45fb-8725-da992a976004" />
+
+  <img width="1823" height="815" alt="Screenshot 2026-07-14 141015" src="https://github.com/user-attachments/assets/cc9a0f74-bc59-4482-b25a-81da834edaf2" />
+
 #
 - <b>Login to SonarQube server, go to <mark>Administration --> Webhook</mark> and click on create </b>
 ![image](https://github.com/user-attachments/assets/16527e72-6691-4fdf-a8d2-83dd27a085cb)
