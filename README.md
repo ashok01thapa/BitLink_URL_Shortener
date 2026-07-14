@@ -180,15 +180,18 @@ sudo apt-get install trivy -y
 
 # 
 - <b> Go back to <mark>Manage Jenkins --> System</mark> and search for <mark>Extended E-mail Notification</mark></b>
-![image](https://github.com/user-attachments/assets/bac81e24-bb07-4659-a251-955966feded8)
+
+<img width="1865" height="827" alt="Screenshot 2026-07-14 134940" src="https://github.com/user-attachments/assets/37cfbbb8-ac0e-400d-8fac-be67fdf0ee31" />
+
 #
 - <b>Scroll down and search for <mark>E-mail Notification</mark> and setup email notification</b>
 > [!Important]
 > Enter your gmail password which we copied recently in password field <mark>E-mail Notification --> Advance</mark>
 
-![image](https://github.com/user-attachments/assets/14e254fc-1400-457e-b3f4-046404b66950)
-![image](https://github.com/user-attachments/assets/7be70b3a-b0dc-415c-838a-b1c6fd87c182)
-![image](https://github.com/user-attachments/assets/cffb6e1d-4838-483e-97e0-6851c204ab21)
+<img width="1871" height="813" alt="Screenshot 2026-07-14 135154" src="https://github.com/user-attachments/assets/445c2356-d6a3-4de6-b1a6-6b864391a575" />
+
+<img width="1778" height="767" alt="Screenshot 2026-07-14 135234" src="https://github.com/user-attachments/assets/60cff27b-1d47-4482-aa06-bb0d869bc107" />
+
 
 #
 ## Steps to implement the project:
@@ -199,16 +202,21 @@ sudo apt-get install trivy -y
   - Pipeline: Stage View
 #
 - <b id="Owasp">Configure OWASP, move to <mark>Manage Jenkins --> Plugins --> Available plugins</mark> (Jenkins Worker)</b>
-![image](https://github.com/user-attachments/assets/da6a26d3-f742-4ea8-86b7-107b1650a7c2)
+
+<img width="1892" height="647" alt="Screenshot 2026-07-14 135555" src="https://github.com/user-attachments/assets/2b844b53-5b44-4303-837d-3c356c624334" />
 
 - <b id="Sonar">After OWASP plugin is installed, Now move to <mark>Manage jenkins --> Tools</mark> (Jenkins Worker)</b>
-![image](https://github.com/user-attachments/assets/3b8c3f20-202e-4864-b3b6-b48d7a604ee8)
+
+<img width="1825" height="821" alt="Screenshot 2026-07-14 135751" src="https://github.com/user-attachments/assets/24688c7a-25ef-412d-a46d-25fe6c92f20f" />
 #
 - <b>Login to SonarQube server and create the credentials for jenkins to integrate with SonarQube</b>
+
   - Navigate to <mark>Administration --> Security --> Users --> Token</mark>
-  ![image](https://github.com/user-attachments/assets/86ad8284-5da6-4048-91fe-ac20c8e4514a)
-  ![image](https://github.com/user-attachments/assets/6bc671a5-c122-45c0-b1f0-f29999bbf751)
-  ![image](https://github.com/user-attachments/assets/e748643a-e037-4d4c-a9be-944995979c60)
+
+<img width="1886" height="960" alt="Screenshot 2026-07-14 140147" src="https://github.com/user-attachments/assets/347a730b-6986-4afa-b42f-9b4580d5034a" />
+<img width="1845" height="532" alt="Screenshot 2026-07-14 140300" src="https://github.com/user-attachments/assets/4d815ae7-cb31-4867-bdc6-b9b4bd89ccf0" />
+<img width="1588" height="533" alt="Screenshot 2026-07-14 152242" src="https://github.com/user-attachments/assets/d39af1fb-368f-415d-a29e-542f593bc464" />
+
 
 #
 - <b>Now, go to <mark> Manage Jenkins --> credentials</mark> and add Sonarqube credentials:</b>
