@@ -80,6 +80,8 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 <img width="1872" height="432" alt="Screenshot 2026-07-14 143316" src="https://github.com/user-attachments/assets/f39519c1-522f-40a7-afc6-935c1eb9a8ef" />
 
 
+
+
 > [!Note]
 > We are creating this master machine because we will configure Jenkins master, eksctl, EKS cluster creation from here.
 
