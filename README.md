@@ -248,20 +248,17 @@ sudo apt-get install trivy -y
 <img width="713" height="758" alt="Screenshot 2026-07-14 141217" src="https://github.com/user-attachments/assets/21c855e6-b49a-4ff4-b8ae-06d963c0c98a" />
 
 #
-- <b>Now, go to github repository and under <mark>Automations</mark> directory update the <mark>instance-id</mark> field on both the <mark>updatefrontendnew.sh updatebackendnew.sh</mark> with the k8s worker's instance id</b>
-![image](https://github.com/user-attachments/assets/3cb044b4-df88-4d68-bf7c-775cf78d5bf2)
-#
 - <b>Navigate to <mark> Manage Jenkins --> credentials</mark> and add credentials for docker login to push docker image:</b>
-![image](https://github.com/user-attachments/assets/1a8287fc-b205-4156-8342-3f660f15e8fa)
-#
-- <b>Create a <mark>Wanderlust-CI</mark> pipeline</b>
-![image](https://github.com/user-attachments/assets/55c7b611-3c20-445f-a49c-7d779894e232)
+<img width="792" height="857" alt="Screenshot 2026-07-14 141312" src="https://github.com/user-attachments/assets/b4df73d7-8aa8-4745-af78-892c75782f30" />
 
 #
-- <b>Create one more pipeline <mark>Wanderlust-CD</mark></b>
-![image](https://github.com/user-attachments/assets/23f84a93-901b-45e3-b4e8-a12cbed13986)
-![image](https://github.com/user-attachments/assets/ac79f7e6-c02c-4431-bb3b-5c7489a93a63)
-![image](https://github.com/user-attachments/assets/46a5937f-e06e-4265-ac0f-42543576a5cd)
+- <b>Create a <mark>BitLinks_CI & BitLinks_CD</mark> pipeline</b>
+
+<img width="1908" height="697" alt="Screenshot 2026-07-14 141454" src="https://github.com/user-attachments/assets/4d19ba44-68e3-41b9-9bcd-b95c3a3f163f" />
+<img width="1877" height="963" alt="Screenshot 2026-07-14 141432" src="https://github.com/user-attachments/assets/090f171a-a8f8-4486-ae20-c5f01bd830a6" />
+
+
+
 #
 - <b>Provide permission to docker socket so that docker build and push command do not fail (Jenkins Worker)</b>
 ```bash
