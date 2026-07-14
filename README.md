@@ -244,8 +244,9 @@ sudo apt-get install trivy -y
 
 #
 - <b>Login to SonarQube server, go to <mark>Administration --> Webhook</mark> and click on create </b>
-![image](https://github.com/user-attachments/assets/16527e72-6691-4fdf-a8d2-83dd27a085cb)
-![image](https://github.com/user-attachments/assets/a8b45948-766a-49a4-b779-91ac3ce0443c)
+<img width="1867" height="732" alt="Screenshot 2026-07-14 141053" src="https://github.com/user-attachments/assets/0f48c825-e703-4ddf-9d88-5f01eeae87eb" />
+<img width="713" height="758" alt="Screenshot 2026-07-14 141217" src="https://github.com/user-attachments/assets/21c855e6-b49a-4ff4-b8ae-06d963c0c98a" />
+
 #
 - <b>Now, go to github repository and under <mark>Automations</mark> directory update the <mark>instance-id</mark> field on both the <mark>updatefrontendnew.sh updatebackendnew.sh</mark> with the k8s worker's instance id</b>
 ![image](https://github.com/user-attachments/assets/3cb044b4-df88-4d68-bf7c-775cf78d5bf2)
