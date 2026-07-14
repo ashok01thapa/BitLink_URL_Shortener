@@ -46,7 +46,7 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 
 ### How pipeline will look after deployment:
 - <b>CI pipeline to build and push</b>
-![image](https://github.com/user-attachments/assets/20542d8b-0701-43ed-b2f8-82f8ed28d053)
+<img width="1887" height="946" alt="Screenshot (416)" src="https://github.com/user-attachments/assets/ae424111-b635-4ea1-b5fe-bc032b026486" />
 
 - <b>CD pipeline to update application version</b>
 ![image](https://github.com/user-attachments/assets/8fd13807-622e-45f7-af23-dcc1ba30ca5d)
