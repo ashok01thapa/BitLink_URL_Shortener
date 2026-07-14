@@ -67,7 +67,7 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 #
 
 > [!Note]
-> We are creating this master machine because we will configure Jenkins master, eksctl, EKS cluster creation from here.
+> We are creating this master machine because we will configure Jenkins master here.
 
 Install & Configure Docker by using below command, "NewGrp docker" will refresh the group config hence no need to restart the EC2 machine.
 
