@@ -42,7 +42,8 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 - Trivy (Filesystem Scan)
 - Jenkins (CD)
 - AWS EC2(Instances)
-- Monitoring using grafana and prometheus
+- Nginx (Reverse Proxy)
+- Monitoring using grafana and prometheus (Docker
 
 ### How pipeline will look after deployment:
 - <b>CI pipeline to build and push</b>
@@ -63,7 +64,7 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 | OWASP setup | <a href="#Owasp">Install and configure OWASP</a>     |
 | SonarQube | <a href="#Sonar">Install and configure SonarQube</a>     |
 | Email Notification Setup | <a href="#Mail">Email notification setup</a>     |
-| Monitoring | <a href="#Monitor">Prometheus and grafana setup using helm charts</a>
+| Monitoring | <a href="#Monitor">Prometheus and grafana setup using Docker</a>
 | Clean Up | <a href="#Clean">Clean up</a>     |
 #
 
@@ -288,39 +289,35 @@ chmod 777 /var/run/docker.sock
 #
 - Expose Prometheus and Grafana to the external world through Node Port
 
+- <b id="Monitor">Run Prometheus and Grafana as Docker containers on the master machine, exposed on port 9090 and 3001 respectively:</b>
 ```bash
-kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+docker run -d --name bitlinks_prometheus -p 9090:9090 \
+  -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus:v2.55.1
+ 
+docker run -d --name bitlinks_grafana -p 3001:3000 \
+  grafana/grafana:11.2.0
 ```
-![image](https://github.com/user-attachments/assets/90f5dc11-23de-457d-bbcb-944da350152e)
-![image](https://github.com/user-attachments/assets/ed94f40f-c1f9-4f50-a340-a68594856cc7)
-
 #
-- Verify service
+- <b>Open port 9090 (Prometheus) and 3001 (Grafana) on the master node's security group</b>
+#
+- <b>Access Prometheus on the browser</b>
 ```bash
-kubectl get svc -n prometheus
+<master-public-ip>:9090
 ```
-
 #
-- Now,let’s change the SVC file of the Grafana and expose it to the outer world
+- <b>Access Grafana on the browser</b>
 ```bash
-kubectl edit svc stable-grafana -n prometheus
-```
-![image](https://github.com/user-attachments/assets/4a2afc1f-deba-48da-831e-49a63e1a8fb6)
-
-#
-- Check grafana service
-```bash
-kubectl get svc -n prometheus
-```
-
-#
-- Get a password for grafana
-```bash
-kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+<master-public-ip>:3001
 ```
 > [!Note]
-> Username: admin
-
+> Default Grafana login is admin / admin — you will be prompted to set a new password on first login.
+ 
+#
+- <b>Add Prometheus as a data source in Grafana (Configuration --> Data sources) using the Prometheus container's URL:</b>
+```bash
+http://bitlinks_prometheus:9090
+```
 #
 - Now, view the Dashboard in Grafana
 
@@ -328,6 +325,18 @@ kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.adm
 
 <img width="1910" height="945" alt="Screenshot (396)" src="https://github.com/user-attachments/assets/01a159f6-0cbb-4128-bde5-4d9918cd357f" />
 
+#
+## Nginx Reverse Proxy
+- <b>Nginx runs as a Docker container in front of the app and routes incoming traffic on port 80 to the BitLinks frontend container:</b>
+```bash
+docker run -d --name bitlinks_nginx -p 80:80 \
+  -v /path/to/nginx.conf:/etc/nginx/conf.d/default.conf \
+  nginx:1.27-alpine
+```
+> [!Note]
+> Sample nginx.conf proxies requests to the frontend container, e.g. `proxy_pass http://bitlinks_frontend:3000;`
+ 
+#
 #
 ## Clean Up
 - <b id="Clean">Delete docker container </b>
