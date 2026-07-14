@@ -273,7 +273,7 @@ chmod 777 /var/run/docker.sock
 #
 - Expose Prometheus and Grafana to the external world through Node Port
 
-- <b id="Monitor">Run Prometheus and Grafana as Docker containers on the master machine, exposed on port 9090 and 3001 respectively:</b>
+- <b id="Monitor">Run Prometheus and Grafana as Docker containers on the worker machine, exposed on port 9090 and 3001 respectively:</b>
 ```bash
 docker run -d --name bitlinks_prometheus -p 9090:9090 \
   -v /path/to/prometheus.yml:/etc/prometheus/prometheus.yml \
