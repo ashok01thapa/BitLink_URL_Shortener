@@ -121,7 +121,7 @@ sudo apt-get install jenkins -y
   - <b>Now move to directory where your ssh keys are generated and copy the content of public key and paste to authorized_keys file of the Jenkins worker node.</b>
 #
   - <b>Now, go to the jenkins master and navigate to <mark>Manage jenkins --> Nodes</mark>, and click on Add node </b>
-    - <b>name:</b> Node
+    - <b>name:</b> bitlinks_
     - <b>type:</b> permanent agent
     - <b>Number of executors:</b> 2
     - Remote root directory
@@ -134,7 +134,7 @@ sudo apt-get install jenkins -y
     - <b>Availability:</b> Keep this agent online as much as possible
 #
   - And your jenkins worker node is added
-  ![image](https://github.com/user-attachments/assets/cab93696-a4e2-4501-b164-8287d7077eef)
+<img width="1907" height="957" alt="Screenshot 2026-07-14 133221" src="https://github.com/user-attachments/assets/50dca654-bafe-4dc9-bf96-2654a6bb6514" />
 
 # 
 - <b id="docker">Install docker (Jenkins Worker)</b>
