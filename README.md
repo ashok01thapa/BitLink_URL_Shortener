@@ -284,7 +284,7 @@ chmod 777 /var/run/docker.sock
 
 
 #
-## How to monitor Bitlinks_app using prometheus and grafana via HELM (On Master machine)
+## How to monitor Bitlinks_app using prometheus and grafana via Docker (On Worker machine)
 
 #
 - Expose Prometheus and Grafana to the external world through Node Port
@@ -303,12 +303,12 @@ docker run -d --name bitlinks_grafana -p 3001:3000 \
 #
 - <b>Access Prometheus on the browser</b>
 ```bash
-<master-public-ip>:9090
+<worker-public-ip>:9090
 ```
 #
 - <b>Access Grafana on the browser</b>
 ```bash
-<master-public-ip>:3001
+<worker-public-ip>:3001
 ```
 > [!Note]
 > Default Grafana login is admin / admin — you will be prompted to set a new password on first login.
