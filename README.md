@@ -267,72 +267,26 @@ chmod 777 /var/run/docker.sock
 ![image](https://github.com/user-attachments/assets/e231c62a-7adb-4335-b67e-480758713dbf)
 #
 
-- <b>Open port 31000 and 31100 on worker node and Access it on browser</b>
+- <b>Open port 80 on worker node and Access it on browser</b>
 ```bash
-<worker-public-ip>:31000
+<worker-public-ip>:80
 ```
-![image](https://github.com/user-attachments/assets/a4b2a4b4-e1aa-4b22-ac6b-f40003d0723a)
-![image](https://github.com/user-attachments/assets/06f9f1c8-094d-4d9f-a9d8-256fb18a9ae4)
-![image](https://github.com/user-attachments/assets/64394f90-8610-44c0-9f63-c3a21eb78f55)
+<img width="1895" height="818" alt="Screenshot 2026-07-14 155825" src="https://github.com/user-attachments/assets/97e07645-6f70-43aa-86f2-7a980e1e4ab1" />
+<img width="1915" height="955" alt="Screenshot (403)" src="https://github.com/user-attachments/assets/fe0f62b1-c248-40fc-a11b-0c7ca111cb0e" />
+<img width="1913" height="952" alt="Screenshot (414)" src="https://github.com/user-attachments/assets/62a84c30-9a49-4bde-aaaf-f42ed5bfbdec" />
+<img width="1890" height="917" alt="Screenshot 2026-07-14 160509" src="https://github.com/user-attachments/assets/579d5a7d-616a-485f-8b7e-5161f6629c77" />
+<img width="1890" height="963" alt="Screenshot 2026-07-14 160536" src="https://github.com/user-attachments/assets/4347aeb7-9433-453c-8f0c-85e393b49183" />
+
+
 - <b>Email Notification</b>
-![image](https://github.com/user-attachments/assets/0ab1ef47-f939-4618-8651-6aa9274721f4)
+<img width="1902" height="853" alt="Screenshot 2026-07-14 141633" src="https://github.com/user-attachments/assets/a1cce563-f830-4eb6-9947-2275f56b9063" />
+
 
 #
-## How to monitor EKS cluster, kubernetes components and workloads using prometheus and grafana via HELM (On Master machine)
-- <p id="Monitor">Install Helm Chart</p>
-```bash
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-```
-```bash
-chmod 700 get_helm.sh
-```
-```bash
-./get_helm.sh
-```
-
-#
--  Add Helm Stable Charts for Your Local Client
-```bash
-helm repo add stable https://charts.helm.sh/stable
-```
-
-#
-- Add Prometheus Helm Repository
-```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-```
-
-#
-- Create Prometheus Namespace
-```bash
-kubectl create namespace prometheus
-```
-```bash
-kubectl get ns
-```
-
-#
-- Install Prometheus using Helm
-```bash
-helm install stable prometheus-community/kube-prometheus-stack -n prometheus
-```
-
-#
-- Verify prometheus installation
-```bash
-kubectl get pods -n prometheus
-```
-
-#
-- Check the services file (svc) of the Prometheus
-```bash
-kubectl get svc -n prometheus
-```
+## How to monitor Bitlinks_app using prometheus and grafana via HELM (On Master machine)
 
 #
 - Expose Prometheus and Grafana to the external world through Node Port
-> [!Important]
-> change it from Cluster IP to NodePort after changing make sure you save the file and open the assigned nodeport to the service.
 
 ```bash
 kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
@@ -369,16 +323,25 @@ kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.adm
 
 #
 - Now, view the Dashboard in Grafana
-![image](https://github.com/user-attachments/assets/d2e7ff2f-059d-48c4-92bb-9711943819c4)
-![image](https://github.com/user-attachments/assets/3d6652d0-7795-4fe9-8919-f33eac88db73)
-![image](https://github.com/user-attachments/assets/13321ee5-5d7b-4976-b409-25d3b865a42a)
-![image](https://github.com/user-attachments/assets/75a22e4b-ae81-4cad-9c92-21dd90d126a8)
+
+<img width="1891" height="964" alt="Screenshot (397)" src="https://github.com/user-attachments/assets/4c946746-2f7e-4bfe-a902-e5cb7ef9f5fa" />
+
+<img width="1910" height="945" alt="Screenshot (396)" src="https://github.com/user-attachments/assets/01a159f6-0cbb-4128-bde5-4d9918cd357f" />
 
 #
 ## Clean Up
-- <b id="Clean">Delete eks cluster</b>
+- <b id="Clean">Delete docker container </b>
 ```bash
-eksctl delete cluster --name=wanderlust --region=us-west-1
+docker stop $(docker ps -aq)
+docker rm $(docker ps -aq)
+docker rmi -f $(docker images -aq)
+docker volume rm $(docker volume ls -q)
+docker network prune -f
+```
+- <b id="Clean"> OR, All-in-one-nuclear option </b>
+```bash
+
+docker system prune -a --volumes -f
 ```
 
 #
