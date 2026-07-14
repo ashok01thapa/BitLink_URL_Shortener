@@ -10,20 +10,6 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 - **Contact Form** – Reach out directly through the built-in contact page
 - **Modern Stack** – Built with Next.js (App Router), React, Tailwind CSS, and MongoDB
 
-## Tech Stack
-- Next.js 15 (App Router)
-- React
-- Tailwind CSS
-- MongoDB (Dockerized for local development)
-
-## Getting Started
-1. Clone the repo
-2. Run `npm install`
-3. Start MongoDB via Docker
-4. Run `npm run dev`
-5. Open `http://localhost:3000`
-#
-
 # BitLinks Project End to End Implementation
 
 ### In this demo, we will see how to deploy an end to end Two-tier Next.js + MongoDB application using Docker and Jenkins CI/CD on AWS EC2..
