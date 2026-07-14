@@ -157,55 +157,7 @@ echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main |
 sudo apt-get update -y
 sudo apt-get install trivy -y
 ```
-#
-- <b id="Argo">Install and Configure ArgoCD (Master Machine)</b>
-  - <b>Create argocd namespace</b>
-  ```bash
-  kubectl create namespace argocd
-  ```
-  - <b>Apply argocd manifest</b>
-  ```bash
-  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-  ```
-  - <b>Make sure all pods are running in argocd namespace</b>
-  ```bash
-  watch kubectl get pods -n argocd
-  ```
-  - <b>Install argocd CLI</b>
-  ```bash
-  sudo curl --silent --location -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/v2.4.7/argocd-linux-amd64
-  ```
-  - <b>Provide executable permission</b>
-  ```bash
-  sudo chmod +x /usr/local/bin/argocd
-  ```
-  - <b>Check argocd services</b>
-  ```bash
-  kubectl get svc -n argocd
-  ```
-  - <b>Change argocd server's service from ClusterIP to NodePort</b>
-  ```bash
-  kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
-  ```
-  - <b>Confirm service is patched or not</b>
-  ```bash
-  kubectl get svc -n argocd
-  ```
-  - <b> Check the port where ArgoCD server is running and expose it on security groups of a worker node</b>
-  ![image](https://github.com/user-attachments/assets/a2932e03-ebc7-42a6-9132-82638152197f)
-  - <b>Access it on browser, click on advance and proceed with</b>
-  ```bash
-  <public-ip-worker>:<port>
-  ```
-  ![image](https://github.com/user-attachments/assets/29d9cdbd-5b7c-44b3-bb9b-1d091d042ce3)
-  ![image](https://github.com/user-attachments/assets/08f4e047-e21c-4241-ba68-f9b719a4a39a)
-  ![image](https://github.com/user-attachments/assets/1ffa85c3-9055-49b4-aab0-0947b95f0dd2)
-  - <b>Fetch the initial password of argocd server</b>
-  ```bash
-  kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
-  ```
-  - <b>Username: admin</b>
-  - <b> Now, go to <mark>User Info</mark> and update your argocd password
+
 #
 ## Steps to add email notification
 - <b id="Mail">Go to your Jenkins Master EC2 instance and allow 465 port number for SMTPS</b>
@@ -214,16 +166,17 @@ sudo apt-get install trivy -y
   - <b>Open gmail and go to <mark>Manage your Google Account --> Security</mark></b>
 > [!Important]
 > Make sure 2 step verification must be on
-
-  ![image](https://github.com/user-attachments/assets/5ab9dc9d-dcce-4f9d-9908-01095f1253cb)
+<img width="1893" height="827" alt="Screenshot 2026-07-14 133909" src="https://github.com/user-attachments/assets/77b62ff8-3771-4560-a054-0bc28e218788" />
 
   - <b>Search for <mark>App password</mark> and create a app password for jenkins</b>
-  ![image](https://github.com/user-attachments/assets/701752da-7703-4685-8f06-fe1f65dd1b9c)
-  ![image](https://github.com/user-attachments/assets/adc8d8c0-8be4-4319-9042-4115abb5c6fc)
-  
+
+  <img width="1897" height="860" alt="Screenshot 2026-07-14 134149" src="https://github.com/user-attachments/assets/7fe3e982-4074-4976-9aa7-7b2cc0a905c0" />
+
 #
 - <b> Once, app password is create and go back to jenkins <mark>Manage Jenkins --> Credentials</mark> to add username and password for email notification</b>
-![image](https://github.com/user-attachments/assets/2a42ec62-87c8-43c8-a034-7be0beb8824e)
+
+<img width="853" height="882" alt="Screenshot 2026-07-14 134631" src="https://github.com/user-attachments/assets/8b932812-f19a-433c-93f1-4a4baea3bb1d" />
+
 
 # 
 - <b> Go back to <mark>Manage Jenkins --> System</mark> and search for <mark>Extended E-mail Notification</mark></b>
