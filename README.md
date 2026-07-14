@@ -26,12 +26,7 @@ BitLinks is a simple and fast URL shortener built with Next.js and MongoDB 🚀 
 
 # BitLinks Project End to End Implementation
 
-### In this demo, we will see how to deploy an end to end three tier MERN stack application on EKS cluster.
-#
-### <mark>Project Deployment Flow:</mark>
-<img src="https://github.com/DevMadhup/Wanderlust-Mega-Project/blob/main/Assets/DevSecOps%2BGitOps.gif" />
-
-#
+### In this demo, we will see how to deploy an end to end Two-tier Next.js + MongoDB application using Docker and Jenkins CI/CD on AWS EC2..
 
 ## Tech stack used in this project:
 - GitHub (Code)
