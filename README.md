@@ -252,7 +252,7 @@ sudo apt-get install trivy -y
 <img width="792" height="857" alt="Screenshot 2026-07-14 141312" src="https://github.com/user-attachments/assets/b4df73d7-8aa8-4745-af78-892c75782f30" />
 
 #
-- <b>Create a <mark>BitLinks_CI & BitLinks_CD</mark> pipeline</b>
+- <b>Create a <mark>Bitlinks_CI & Bitlinks_CD</mark> pipeline</b>
 
 <img width="1908" height="697" alt="Screenshot 2026-07-14 141454" src="https://github.com/user-attachments/assets/4d19ba44-68e3-41b9-9bcd-b95c3a3f163f" />
 <img width="1877" height="963" alt="Screenshot 2026-07-14 141432" src="https://github.com/user-attachments/assets/090f171a-a8f8-4486-ae20-c5f01bd830a6" />
@@ -266,57 +266,7 @@ chmod 777 /var/run/docker.sock
 ```
 ![image](https://github.com/user-attachments/assets/e231c62a-7adb-4335-b67e-480758713dbf)
 #
-- <b> Go to Master Machine and add our own eks cluster to argocd for application deployment using cli</b>
-  - <b>Login to argoCD from CLI</b>
-  ```bash
-   argocd login 52.53.156.187:32738 --username admin
-  ```
-> [!Tip]
-> 52.53.156.187:32738 --> This should be your argocd url
 
-  ![image](https://github.com/user-attachments/assets/7d05e5ca-1a16-4054-a321-b99270ca0bf9)
-
-  - <b>Check how many clusters are available in argocd </b>
-  ```bash
-  argocd cluster list
-  ```
-  ![image](https://github.com/user-attachments/assets/76fe7a45-e05c-422d-9652-bdaee02d630f)
-  - <b>Get your cluster name</b>
-  ```bash
-  kubectl config get-contexts
-  ```
-  ![image](https://github.com/user-attachments/assets/4cab99aa-cef3-45f6-9150-05004c2f09f8)
-  - <b>Add your cluster to argocd</b>
-  ```bash
-  argocd cluster add Wanderlust@wanderlust.us-west-1.eksctl.io --name wanderlust-eks-cluster
-  ```
-  > [!Tip]
-  > Wanderlust@wanderlust.us-west-1.eksctl.io --> This should be your EKS Cluster Name.
-
-  ![image](https://github.com/user-attachments/assets/0f36aafd-bab9-4ef8-ba5d-3eb56d850604)
-  - <b> Once your cluster is added to argocd, go to argocd console <mark>Settings --> Clusters</mark> and verify it</b>
-  ![image](https://github.com/user-attachments/assets/4490b632-19fd-4499-a341-fabf8488d13c)
-#
-- <b>Go to <mark>Settings --> Repositories</mark> and click on <mark>Connect repo</mark> </b>
-![image](https://github.com/user-attachments/assets/cc8728e5-546b-4c46-bd4c-538f4cd6a63d)
-![image](https://github.com/user-attachments/assets/eb3646e2-db84-4439-a11a-d4168080d9cc)
-![image](https://github.com/user-attachments/assets/a07f8703-5ef3-4524-aaa7-39a139335eb7)
-> [!Note]
-> Connection should be successful
-
-- <b>Now, go to <mark>Applications</mark> and click on <mark>New App</mark></b>
-
-![image](https://github.com/user-attachments/assets/ec2d7a51-d78f-4947-a90b-258944ad59a2)
-
-> [!Important]
-> Make sure to click on the <mark>Auto-Create Namespace</mark> option while creating argocd application
-
-![image](https://github.com/user-attachments/assets/55dcd3c2-5424-4efb-9bee-1c12bbf7f158)
-![image](https://github.com/user-attachments/assets/3e2468ff-8cb2-4bda-a8cc-0742cd6d0cae)
-
-- <b>Congratulations, your application is deployed on AWS EKS Cluster</b>
-![image](https://github.com/user-attachments/assets/bc2d9680-fe00-49f9-81bf-93c5595c20cc)
-![image](https://github.com/user-attachments/assets/1ea9d486-656e-40f1-804d-2651efb54cf6)
 - <b>Open port 31000 and 31100 on worker node and Access it on browser</b>
 ```bash
 <worker-public-ip>:31000
